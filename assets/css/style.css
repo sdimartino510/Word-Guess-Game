@@ -1,10 +1,15 @@
 body {
-    background-color: #242424
-}
-.header-box {
+    background-color: #242424;
     font-family: 'VT323', monospace;
-    text-align: center;
     color: #a9a9a9;
+}
+.header {
+    text-align: center;
     font-size: 100px;
     border: dashed #a9a9a9 5px;
+    padding-bottom: 15px;
+}
+.sub-header {
+    text-align: center;
+    font-size: 30px;
 }
