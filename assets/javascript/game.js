@@ -1,4 +1,4 @@
-//Browser generates random word from pre-determined list and generates an underscore for each letter
+//Browser generates random word from pre-determined list (array) and generates an underscore for each letter. THIS SECTION OF CODE ISN'T WORKING, WON'T LOG TO CONSOLE
 function getItem() {
     let wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
     document.getElementById("word").innerHTML = wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)];
@@ -11,7 +11,7 @@ function getItem() {
 
 //Guessed letter is compared to letters in selected word
 
-//If letter is in selected word, letter appears in corresponding place in word, player can no longer guess that letter, and player continues guessing
+//If letter is in selected word, letter appears in corresponding place in word (replacing underscore), player can no longer guess that letter, and player continues guessing
 
 //If letter is not in selected word, player loses one of their ten guesses, incorrectly guessed letter appears in "letters already guessed," and player can no longer guess that letter.
 
