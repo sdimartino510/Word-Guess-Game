@@ -2,8 +2,8 @@
 function getItem() {
     let wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
     document.getElementById("word").innerHTML = wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)];
-    var randomWord = (wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)]);
-        console.log(randomWord);
+    let randomWord = (wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)]);
+    console.log(randomWord);
 }
 //Player is given ten opportunities to guess letters
 
