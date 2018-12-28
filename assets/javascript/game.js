@@ -1,10 +1,68 @@
-//Browser generates random word from pre-determined list (array) and generates an underscore for each letter. THIS SECTION OF CODE ISN'T WORKING, WON'T LOG TO CONSOLE
-function getItem() {
-    let wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
-    document.getElementById("word").innerHTML = wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)];
-    let randomWord = (wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)]);
-    console.log(randomWord);
+var currentWord = null;
+var numberOfGuessesRemaining = 0;
+var displayWord = null;
+var lettersAlreadyGuessed = "";
+
+const wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
+
+window.addEventListener("keyup", event => {
+    playGame(event.key);
+});
+
+function playGame(guess) {
+    if (currentWord == null) {
+        setupGame();
+    } else {
+        takeAGuess(guess);
+    }
 }
+
+function setupGame() {
+    currentWord = selectWord();
+    displayWord = updateDisplayWord(currentWord);
+    numberOfGuessesRemaining = 10;
+    console.log(currentWord);
+}
+
+function takeAGuess(guess) {
+    if (wordContainsLetter(lettersAlreadyGuessed, guess)) {
+        console.log("letter already guessed")
+        return
+    }
+
+    if (wordContainsLetter(currentWord, guess)) {
+        console.log("yay!");
+    } else {
+        lettersAlreadyGuessed += guess;
+        console.log(lettersAlreadyGuessed);
+    }
+
+    console.log(guess);
+}
+
+function wordContainsLetter(word, letter) {
+    if (word.includes(letter)) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function selectWord() {
+    let randomWord = (wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)]);
+    
+    return randomWord;
+}
+
+function updateDisplayWord(fromWord) {
+    return "_____"
+}
+
+//Browser generates random word from pre-determined list (array) and generates an underscore for each letter.
+    
+//     document.getElementById("word").innerHTML = wordsToGuess[Math.floor(Math.random() * wordsToGuess.length)];
+    
 //Player is given ten opportunities to guess letters
 
 //Player selects a letter by pressing that letter key on keyboard
