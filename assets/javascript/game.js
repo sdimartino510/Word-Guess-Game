@@ -1,7 +1,17 @@
+//1. filter out anything not alphabetic
+//2. convert keyup event to lower case
+//3. convert lettersAlreadyGuessed to upper case
+//4. insert spaces in lettersAlreadyGuessed
+//5. update DOM
+//6. test test test
+//7. profit
+
 var currentWord = null;
 var numberOfGuessesRemaining = 0;
 var displayWord = null;
 var lettersAlreadyGuessed = "";
+var successfulGuesses = "";
+var numberOfWins = 0;
 
 const wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
 
@@ -11,17 +21,19 @@ window.addEventListener("keyup", event => {
 
 function playGame(guess) {
     if (currentWord == null) {
-        setupGame();
+        resetGame();
     } else {
         takeAGuess(guess);
     }
 }
 
-function setupGame() {
+function resetGame() {
     currentWord = selectWord();
-    displayWord = updateDisplayWord(currentWord);
+    revealWord = updateRevealWord(currentWord);
     numberOfGuessesRemaining = 10;
-    console.log(currentWord);
+    lettersAlreadyGuessed = "";
+    successfulGuesses = "";
+    console.log("initial word: " + currentWord);
 }
 
 function takeAGuess(guess) {
@@ -30,14 +42,35 @@ function takeAGuess(guess) {
         return
     }
 
+    if (wordContainsLetter(successfulGuesses, guess)) {
+        console.log("letter already guessed")
+        return
+    }
+    
     if (wordContainsLetter(currentWord, guess)) {
-        console.log("yay!");
+        successfulGuesses += guess;
+        console.log("successful guesses: " + successfulGuesses);
+        revealWord = updateRevealWord(currentWord);
+        console.log("updated reveal word: " + revealWord);
+        
+        if (isGameOver()) {
+            numberOfWins++;
+            alert("YOU WIN!");
+            console.log("wins: " + numberOfWins);
+            resetGame();
+        } 
     } else {
         lettersAlreadyGuessed += guess;
-        console.log(lettersAlreadyGuessed);
+        console.log("bad guesses: " + lettersAlreadyGuessed);
+        numberOfGuessesRemaining--;
+        console.log("remaining guesses: " + numberOfGuessesRemaining);
+        
+        if (numberOfGuessesRemaining == 0) {
+            console.log("game over");
+            resetGame();
+        }
     }
 
-    console.log(guess);
 }
 
 function wordContainsLetter(word, letter) {
@@ -55,8 +88,40 @@ function selectWord() {
     return randomWord;
 }
 
-function updateDisplayWord(fromWord) {
-    return "_____"
+function updateRevealWord(fromWord) {
+    var newRevealWord = "";
+    for (var i = 0; i < currentWord.length; i++) {
+        var letter = currentWord.charAt(i);
+
+        if (i > 0) {
+            newRevealWord += " ";
+        }
+
+        if (wordContainsLetter(successfulGuesses, letter)) {
+            newRevealWord += letter;
+        } else {
+            newRevealWord += "_";
+        }
+    }
+
+    return newRevealWord;
+}
+
+function isGameOver() {
+    var gameIsOver = true
+    
+    for (var i = 0; i < currentWord.length; i++) {
+        var letter = currentWord.charAt(i);
+
+        if (wordContainsLetter(successfulGuesses, letter)) {
+            continue;
+        } else {
+            gameIsOver = false;
+            break;
+        }
+    }
+
+    return gameIsOver;
 }
 
 //Browser generates random word from pre-determined list (array) and generates an underscore for each letter.
