@@ -2,11 +2,15 @@
 //6. test test test
 //7. profit
 
+//ON SECOND ROUND, SOME LETTERS ALREADY APPEAR (whatever letters were in previous word)? ALSO, LETTERS ALREADY GUESSED FROM PREVIOUS WORD STILL APPEAR, EVERYTHING GOES AWAY AS SOON AS YOU TAKE A NEW GUESS
+
+//Alert when letter already guessed?
+
 //show word if run out of guesses? done with "alert", can we also plug it into the DOM?
 
 var currentWord = null;
 var numberOfGuessesRemaining = 0;
-var displayWord = null;
+var displayWorupdateD = null;
 var lettersAlreadyGuessed = "";
 var successfulGuesses = "";
 var numberOfWins = 0;
@@ -41,6 +45,9 @@ function playGame(guess) {
     }
 
     updateWins();
+    updateLosses();
+    updateDisplayWord();
+    updateNumberOfGuessesRemaining();
 }
 
 function resetGame() {
@@ -50,6 +57,7 @@ function resetGame() {
     lettersAlreadyGuessed = "";
     successfulGuesses = "";
     console.log("initial word: " + currentWord);
+    
 }
 
 function takeAGuess(guess) {
@@ -88,8 +96,11 @@ function takeAGuess(guess) {
             alert('Sorry, you lose! The word was "' + currentWord + '"');
             console.log("number of losses: " + numberOfLosses);
             resetGame();
+            updateLosses();
         }
     }
+
+    updateLettersAlreadyGuessed();
 
 }
 
@@ -158,5 +169,21 @@ function isGameOver() {
 }
 
 function updateWins() {
-    document.getElementById("wins").innerHTML("Wins: " + numberOfWins);
+    document.getElementById("wins").innerHTML=("Wins: " + numberOfWins);
+}
+
+function updateLosses() {
+    document.getElementById("losses").innerHTML=("Losses: " + numberOfLosses);
+}
+
+function updateDisplayWord() {
+    document.getElementById("current-word").innerHTML=(revealWord);
+}
+
+function updateLettersAlreadyGuessed() {
+    document.getElementById("already-guessed").innerHTML=(alreadyGuessedDisplayString);
+}
+
+function updateNumberOfGuessesRemaining() {
+    document.getElementById("guesses-remaining").innerHTML=("Number of guesses remaining: " + numberOfGuessesRemaining)
 }
