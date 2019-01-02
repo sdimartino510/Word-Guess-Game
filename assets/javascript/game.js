@@ -6,6 +6,8 @@
 //6. test test test
 //7. profit
 
+//show word if run out of guesses? done with "alert", can we also plug it into the DOM?
+
 var currentWord = null;
 var numberOfGuessesRemaining = 0;
 var displayWord = null;
@@ -13,10 +15,11 @@ var lettersAlreadyGuessed = "";
 var successfulGuesses = "";
 var numberOfWins = 0;
 
-const wordsToGuess = ['monday', 'airplane', 'window', 'altruistic', 'sanguine', 'portfolio', 'astronaut', 'revolution', 'escarpment', 'defenestration'];
+const wordsToGuess = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'europa', 'titan', 'ganymedes', 'astronomy', 'stargazing', 'callisto', 'nebula', 'telescope', 'phobos', 'deimos', 'galileo', 'hubble', 'intergalactic', 'planetary', 'lunar', 'solar', 'quasar', 'pulsar', 'supernova', 'astrophysics', 'constellation', 'kepler', 'observatory', 'orion', 'cancer', 'aries', 'polaris', 'planetarium', 'planet', 'planetoid', 'satellite', 'umbra', 'terrestrial', 'triton', 'virgo'];
 
 window.addEventListener("keyup", event => {
     playGame(event.key);
+    console.log(event.key);
 });
 
 function playGame(guess) {
@@ -66,7 +69,7 @@ function takeAGuess(guess) {
         console.log("remaining guesses: " + numberOfGuessesRemaining);
         
         if (numberOfGuessesRemaining == 0) {
-            console.log("game over");
+            alert('Sorry, you lose! The word was "' + currentWord + '"');
             resetGame();
         }
     }

@@ -7,7 +7,9 @@ body {
     text-align: center;
     font-size: 100px;
     border: dashed #7f7f7f 5px;
-    padding-bottom: 15px;
+}
+.planet {
+    padding-top: 15px;
 }
 .sub-header {
     text-align: center;
