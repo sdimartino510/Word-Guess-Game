@@ -17,7 +17,7 @@ var numberOfWins = 0;
 var numberOfLosses = 0;
 var alreadyGuessedDisplayString = "";
 
-const wordsToGuess = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'europa', 'titan', 'ganymedes', 'astronomy', 'stargazing', 'callisto', 'nebula', 'telescope', 'phobos', 'deimos', 'galileo', 'hubble', 'intergalactic', 'planetary', 'lunar', 'solar', 'quasar', 'pulsar', 'supernova', 'astrophysics', 'constellation', 'kepler', 'observatory', 'orion', 'cancer', 'aries', 'polaris', 'planetarium', 'planet', 'planetoid', 'satellite', 'umbra', 'terrestrial', 'triton', 'virgo', 'eclipse', 'asteroid', 'comet', 'meteor', 'meteorite'];
+const wordsToGuess = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'europa', 'titan', 'ganymedes', 'astronomy', 'stargazing', 'callisto', 'nebula', 'telescope', 'phobos', 'deimos', 'galileo', 'hubble', 'intergalactic', 'planetary', 'lunar', 'solar', 'quasar', 'pulsar', 'supernova', 'astrophysics', 'constellation', 'kepler', 'observatory', 'orion', 'cancer', 'aries', 'polaris', 'planetarium', 'planet', 'planetoid', 'satellite', 'umbra', 'terrestrial', 'triton', 'virgo', 'eclipse', 'asteroid', 'comet', 'meteor', 'meteorite', 'orbit'];
 
 window.addEventListener("keypress", event => {
     if (isValidInput(event.key)) {
@@ -185,5 +185,5 @@ function updateLettersAlreadyGuessed() {
 }
 
 function updateNumberOfGuessesRemaining() {
-    document.getElementById("guesses-remaining").innerHTML=("Number of guesses remaining: " + numberOfGuessesRemaining)
+    document.getElementById("guesses-remaining").innerHTML=("Number of guesses remaining: " + numberOfGuessesRemaining);
 }
