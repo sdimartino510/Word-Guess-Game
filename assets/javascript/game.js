@@ -40,7 +40,7 @@ function playGame(guess) {
         takeAGuess(guess);
     }
 
-    //updateDOM();
+    updateWins();
 }
 
 function resetGame() {
@@ -157,6 +157,6 @@ function isGameOver() {
     return gameIsOver;
 }
 
-// function updateDOM() {
-//     document.getElementById("wins").innerHTML("Wins: " + numberOfWins);
-// }
+function updateWins() {
+    document.getElementById("wins").innerHTML("Wins: " + numberOfWins);
+}
