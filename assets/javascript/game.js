@@ -1,5 +1,3 @@
-//show word if run out of guesses? done with "alert", can we also plug it into the DOM?
-
 var currentWord = null;
 var numberOfGuessesRemaining = 0;
 var displayWorupdateD = null;
@@ -65,52 +63,42 @@ function resetGame() {
     lettersAlreadyGuessed = "";
     alreadyGuessedDisplayString = "";
     gameEnded = false;
-    userWon = false;
-    console.log("current word: " + currentWord);
-    
+    userWon = false;    
 }
 
 function takeAGuess(guess) {
-    if (wordContainsLetter(lettersAlreadyGuessed, guess)) {
-        console.log("letter already guessed")
+    if (stringContainsLetter(lettersAlreadyGuessed, guess)) {
         return
     }
 
-    if (wordContainsLetter(successfulGuesses, guess)) {
-        console.log("letter already guessed")
+    if (stringContainsLetter(successfulGuesses, guess)) {
         return
     }
     
-    if (wordContainsLetter(currentWord, guess)) {
+    if (stringContainsLetter(currentWord, guess)) {
         successfulGuesses += guess;
-        console.log("successful guesses: " + successfulGuesses);
         revealWord = produceRevealWord();
-        console.log("updated reveal word: " + revealWord);
         
         if (isGameOver()) {
             numberOfWins++;
             gameEnded = true;
             userWon = true;
-            console.log("wins: " + numberOfWins);
         } 
     } else {
         lettersAlreadyGuessed += guess;
-        console.log("bad guesses: " + lettersAlreadyGuessed);
         numberOfGuessesRemaining--;
-        console.log("remaining guesses: " + numberOfGuessesRemaining);
         alreadyGuessedDisplayString = produceAlreadyGuessedString();
-        console.log("already guessed display string: " + alreadyGuessedDisplayString);
         
         if (numberOfGuessesRemaining == 0) {
             numberOfLosses++;
             gameEnded = true;
             userWon = false;
-            console.log("number of losses: " + numberOfLosses);
+            completeWord();
         }
     }
 }
 
-function wordContainsLetter(word, letter) {
+function stringContainsLetter(word, letter) {
     if (word.includes(letter)) {
         return true;
     } else {
@@ -134,7 +122,7 @@ function produceRevealWord() {
             newRevealWord += " ";
         }
 
-        if (wordContainsLetter(successfulGuesses, letter)) {
+        if (stringContainsLetter(successfulGuesses, letter)) {
             newRevealWord += letter;
         } else {
             newRevealWord += "_";
@@ -163,7 +151,7 @@ function isGameOver() {
     for (var i = 0; i < currentWord.length; i++) {
         var letter = currentWord.charAt(i);
 
-        if (wordContainsLetter(successfulGuesses, letter)) {
+        if (stringContainsLetter(successfulGuesses, letter)) {
             continue;
         } else {
             gameIsOver = false;
@@ -172,6 +160,18 @@ function isGameOver() {
     }
 
     return gameIsOver;
+}
+
+function completeWord() {
+    for (var i = 0; i < currentWord.length; i++) {
+        var letter = currentWord.charAt(i);
+
+        if (stringContainsLetter(successfulGuesses, letter) == false) {
+            successfulGuesses += letter;
+        }
+    }
+
+    revealWord = produceRevealWord();
 }
 
 function updateUserInterface() {
