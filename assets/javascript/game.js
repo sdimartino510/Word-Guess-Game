@@ -8,6 +8,8 @@ var successfulGuesses = "";
 var numberOfWins = 0;
 var numberOfLosses = 0;
 var alreadyGuessedDisplayString = "";
+var gameEnded = false;
+var userWon = false;
 
 const wordsToGuess = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'europa', 'titan', 'ganymedes', 'astronomy', 'stargazing', 'callisto', 'nebula', 'telescope', 'phobos', 'deimos', 'galileo', 'hubble', 'intergalactic', 'planetary', 'lunar', 'solar', 'quasar', 'pulsar', 'supernova', 'astrophysics', 'constellation', 'kepler', 'observatory', 'orion', 'cancer', 'aries', 'polaris', 'planetarium', 'planet', 'planetoid', 'satellite', 'umbra', 'terrestrial', 'triton', 'virgo', 'eclipse', 'asteroid', 'comet', 'meteor', 'meteorite', 'orbit'];
 
@@ -36,21 +38,34 @@ function playGame(guess) {
         takeAGuess(guess);
     }
 
-    updateWins();
-    updateLosses();
-    console.log("about to update current word: " + successfulGuesses);
-    updateCurrentWord();
-    console.log("updated current word: " + successfulGuesses);
-    updateNumberOfGuessesRemaining();
+    updateUserInterface();
+
+    if (gameEnded) {
+        if (userWon) {
+            setTimeout(function() {
+                alert('YOU WON!');
+                resetGame();
+                updateUserInterface();
+            }, 1);
+        } else {
+            setTimeout(function() {
+                alert("Sorry, you lost. The word was '" + currentWord + "'.");
+                resetGame();
+                updateUserInterface();
+            }, 1);
+        }
+    }
 }
 
 function resetGame() {
     currentWord = selectWord();
     successfulGuesses = "";
-    revealWord = updateRevealWord();
+    revealWord = produceRevealWord();
     numberOfGuessesRemaining = 10;
     lettersAlreadyGuessed = "";
     alreadyGuessedDisplayString = "";
+    gameEnded = false;
+    userWon = false;
     console.log("current word: " + currentWord);
     
 }
@@ -69,36 +84,30 @@ function takeAGuess(guess) {
     if (wordContainsLetter(currentWord, guess)) {
         successfulGuesses += guess;
         console.log("successful guesses: " + successfulGuesses);
-        revealWord = updateRevealWord();
+        revealWord = produceRevealWord();
         console.log("updated reveal word: " + revealWord);
         
         if (isGameOver()) {
             numberOfWins++;
-            alert("YOU WIN!");
+            gameEnded = true;
+            userWon = true;
             console.log("wins: " + numberOfWins);
-            resetGame();
         } 
     } else {
         lettersAlreadyGuessed += guess;
         console.log("bad guesses: " + lettersAlreadyGuessed);
         numberOfGuessesRemaining--;
         console.log("remaining guesses: " + numberOfGuessesRemaining);
-        alreadyGuessedDisplayString = updateAlreadyGuessedString();
+        alreadyGuessedDisplayString = produceAlreadyGuessedString();
         console.log("already guessed display string: " + alreadyGuessedDisplayString);
         
         if (numberOfGuessesRemaining == 0) {
             numberOfLosses++;
-            alert('Sorry, you lose! The word was "' + currentWord + '"');
+            gameEnded = true;
+            userWon = false;
             console.log("number of losses: " + numberOfLosses);
-            console.log("about to reset game: " + successfulGuesses);
-            resetGame();
-            console.log("game was reset: " + successfulGuesses);
-            updateLosses();
         }
     }
-
-    updateLettersAlreadyGuessed();
-
 }
 
 function wordContainsLetter(word, letter) {
@@ -116,7 +125,7 @@ function selectWord() {
     return randomWord;
 }
 
-function updateRevealWord() {
+function produceRevealWord() {
     var newRevealWord = "";
     for (var i = 0; i < currentWord.length; i++) {
         var letter = currentWord.charAt(i);
@@ -135,7 +144,7 @@ function updateRevealWord() {
     return newRevealWord;
 }
 
-function updateAlreadyGuessedString() {
+function produceAlreadyGuessedString() {
     var newString = "";
 
     for (var i = 0; i < lettersAlreadyGuessed.length; i++) {
@@ -165,6 +174,14 @@ function isGameOver() {
     return gameIsOver;
 }
 
+function updateUserInterface() {
+    updateWins();
+    updateLosses();
+    updateRevealWord();
+    updateNumberOfGuessesRemaining();
+    updateLettersAlreadyGuessed();
+}
+
 function updateWins() {
     document.getElementById("wins").innerHTML=("Wins: " + numberOfWins);
 }
@@ -173,7 +190,7 @@ function updateLosses() {
     document.getElementById("losses").innerHTML=("Losses: " + numberOfLosses);
 }
 
-function updateCurrentWord() {
+function updateRevealWord() {
     document.getElementById("current-word").innerHTML=(revealWord);
 }
 
