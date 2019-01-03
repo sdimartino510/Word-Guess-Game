@@ -1,6 +1,6 @@
 var currentWord = null;
+var revealWord = null;
 var numberOfGuessesRemaining = 0;
-var displayWorupdateD = null;
 var lettersAlreadyGuessed = "";
 var successfulGuesses = "";
 var numberOfWins = 0;
