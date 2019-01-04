@@ -99,7 +99,7 @@ function takeAGuess(guess) {
 }
 
 function stringContainsLetter(word, letter) {
-    if (word.includes(letter)) {
+    if (word.indexOf(letter) >= 0) {
         return true;
     } else {
         return false;
