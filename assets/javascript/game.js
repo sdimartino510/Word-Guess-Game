@@ -11,7 +11,7 @@ var userWon = false;
 
 const wordsToGuess = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'europa', 'titan', 'ganymedes', 'astronomy', 'stargazing', 'callisto', 'nebula', 'telescope', 'phobos', 'deimos', 'galileo', 'hubble', 'intergalactic', 'planetary', 'lunar', 'solar', 'quasar', 'pulsar', 'supernova', 'astrophysics', 'constellation', 'kepler', 'observatory', 'orion', 'cancer', 'aries', 'polaris', 'planetarium', 'planet', 'planetoid', 'satellite', 'umbra', 'terrestrial', 'triton', 'virgo', 'eclipse', 'asteroid', 'comet', 'meteor', 'meteorite', 'orbit'];
 
-window.addEventListener("keypress", event => {
+window.addEventListener("keydown", event => {
     if (isValidInput(event.key)) {
         var letter = event.key.toLowerCase();
 
