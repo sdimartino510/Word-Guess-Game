@@ -24,3 +24,8 @@ body {
     border: dashed #7f7f7f 5px;
     font-size: 20px;
 }
+
+.start-game {
+    font-size: 35px;
+    font-weight: 700;
+}
